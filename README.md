@@ -1,5 +1,5 @@
 ![LeiaSkywalker BOT](https://i.ibb.co/HXTctRy/leia.jpg)
-# IRC-LeiaBot!
+# IRC-LeiaBot!🖤📡💻
 Bot para chorras, controles de canales y peticiones de usuarios actualmente que funciona
 
  1. Decir frases
@@ -15,7 +15,7 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
  - [ ] Buscar información sobre el Horóscopo actualizado
  - [ ] Moderación de Canales y Apoyo a los servicios 
  - [ ] Ayuda en el canal de #ayuda
- - [ ] Mostrar info sobre el COVID de los demás paises lo más actualizada posible.
+ - [ ] Mostrar info sobre el COVID de los demás paises lo más actualizada posible.![enter image descriptin here](https://i.ibb.co/fQd3kZW/leia.jpg
 
 ## Como instalar
 
@@ -32,8 +32,3 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
 > Si desea al bot en su canal no mas invitalo a tu canal con /cs invite #channel LeiaSkywalker
 
 **May The Force Be With Us**
-
-
-
- 
-
