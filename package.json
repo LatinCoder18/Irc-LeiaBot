@@ -1,7 +1,7 @@
 {
   "name": "irc-bot",
   "version": "1.0.0",
-  "description": "\"Bot para el IRC segured COVID19\"",
+  "description": "\"Bot de ayuda de IRC\"",
   "main": "index.js",
   "scripts": {
     "start":"node index.js"
