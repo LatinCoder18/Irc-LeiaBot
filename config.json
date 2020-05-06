@@ -3,7 +3,7 @@
         "name": "LeiaSkywalker",
         "username": "Leia",
         "realname": "Princesa Leia, Hermana de Luke",
-        "server": "irc.freenode.org",
+        "server": "irc.segured .org",
         "port": "6667",
         "botmaster": "LukeSkywalker",
         "password": "******",
@@ -11,6 +11,9 @@
             "#dev_team",
             "#ayuda",
             "#cuarentenitis"
+        ],
+        "ignore": [
+            "Link"
         ]
     },
     "database": {
