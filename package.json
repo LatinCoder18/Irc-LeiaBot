@@ -12,6 +12,7 @@
     "csv-reader": "^1.0.6",
     "hasha": "^5.2.0",
     "irc": "^0.5.2",
+    "mysql": "^2.18.1",
     "request": "^2.88.2",
     "rss-parser": "^3.7.6",
     "scrape-youtube": "^0.1.7",

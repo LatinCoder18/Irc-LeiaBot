@@ -1,11 +1,22 @@
 {
     "bot": {
         "name": "LeiaSkywalker",
-        "username": "LeiaOrgana",
-        "realname": "Princesa Leia Organa",
+        "username": "Leia",
+        "realname": "Princesa Leia, Hermana de Luke",
         "server": "irc.freenode.org",
         "port": "6667",
         "botmaster": "LukeSkywalker",
-        "password": "******"
+        "password": "******",
+        "channels": [
+            "#dev_team",
+            "#ayuda",
+            "#cuarentenitis"
+        ]
+    },
+    "database": {
+        "user": "root",
+        "password": "",
+        "server": "localhost",
+        "bd_name": "IRC_bot"
     }
 }

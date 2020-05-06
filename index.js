@@ -89,7 +89,6 @@ client.addListener('message', function (from, to, message) {
     }
 
 
-
 });
 
 function getCovidCuba(test) {
