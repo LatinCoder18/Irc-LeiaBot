@@ -7,16 +7,18 @@ let parser = new Parser();
 const http = require('https');
 const hasha = require('hasha');
 var weather = require('weather-js');
+var config = require('./config.json');
 
-var client = new irc.Client('irc.segured.org', 'LeiaSkywalker', {
-    userName: 'LeiaOrgana',
-    realName: 'Princesa Leia Organa',
+
+var client = new irc.Client(config.bot.server, config.bot.name, {
+    userName: config.bot.username,
+    realName: config.bot.realname,
     channels: ['#dev_team'],
     debug: false,
-    port: 6667
+    port: config.bot.port
 });
 client.addListener('registered', function () {
-    client.say('nickserv', 'identify ' + "TheForce*");
+    client.say('nickserv', 'identify ' + config.bot.password);
     const file = fs.createWriteStream("covid.csv");
     const request = http.get("https://covid19cubadata.github.io/data/covid19-casos.csv", function (response) {
         response.pipe(file);
