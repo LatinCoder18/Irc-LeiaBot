@@ -13,7 +13,7 @@ var config = require('./config.json');
 var client = new irc.Client(config.bot.server, config.bot.name, {
     userName: config.bot.username,
     realName: config.bot.realname,
-    channels: ['#dev_team'],
+    channels: config.bot.channels,
     debug: false,
     port: config.bot.port
 });
@@ -50,7 +50,7 @@ client.addListener('message', function (from, to, message) {
         } else if (msg[0] == '!piropo') {
             decirPiropo(to, fro, msg[1]);
         } else if (msg[0] == '!insulto') {
-            if (msg[1] == 'LukeSkywalker') {
+            if (msg[1] == config.bot.botmaster) {
                 decirPiropo(to, fro, msg[1]);
             } else {
                 decirInsulto(to, fro, msg[1]);
@@ -146,7 +146,7 @@ function getClima(country, from) {
         if (err) console.log(err);
 
         resultado = result;
-        
+
         client.say(from, 'En ' + resultado[1].location.name + ' la temperatura actual es de :' + resultado[1].current.temperature + 'Grados C');
     });
 }
@@ -227,7 +227,6 @@ function sayNew(params, from) {
 function searchYoutube(string, fro) {
     youtube.searchOne(string).then(results => {
         client.say(fro, results["title"] + " " + results["link"] + " - " + results["duration"] + " segs");
-
     });
 }
 
