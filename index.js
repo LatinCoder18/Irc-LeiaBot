@@ -51,6 +51,8 @@ client.addListener('message', function (from, to, message) {
             decirPiropo(to, fro, msg[1]);
         } else if (msg[0] == '!insulto') {
             if (msg[1] == config.bot.botmaster) {
+                client.say(to, "Vas a insultar a mi creador, porque mejor no le dedicamos un hermoso piropito.");
+                sleep(2000);
                 decirPiropo(to, fro, msg[1]);
             } else {
                 decirInsulto(to, fro, msg[1]);
@@ -145,8 +147,9 @@ function getClima(country, from) {
         if (err) console.log(err);
 
         resultado = result;
+        //console.log(resultado[0]);
 
-        client.say(from, 'En ' + resultado[1].location.name + ' la temperatura actual es de : ' + resultado[1].current.temperature + ' Grados C');
+        client.say(from, 'En ' + resultado[0].location.name + ' la temperatura actual es de : ' + resultado[0].current.temperature + ' Grados C, con una sensación térmica de ' + resultado[0].current.feelslike + ' grados C' + ' y una humedad de ' + resultado[0].current.humidity);
     });
 }
 function decirFraseR(to, from) {
