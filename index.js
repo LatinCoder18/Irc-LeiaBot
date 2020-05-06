@@ -4,7 +4,9 @@ const fs = require('fs')
 const youtube = require('scrape-youtube').youtube;
 let Parser = require('rss-parser');
 let parser = new Parser();
-
+const http = require('https');
+const hasha = require('hasha');
+var weather = require('weather-js');
 
 var client = new irc.Client('irc.segured.org', 'LeiaSkywalker', {
     userName: 'LeiaOrgana',
@@ -15,14 +17,17 @@ var client = new irc.Client('irc.segured.org', 'LeiaSkywalker', {
 });
 client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + "TheForce*");
+    const file = fs.createWriteStream("covid.csv");
+    const request = http.get("https://covid19cubadata.github.io/data/covid19-casos.csv", function (response) {
+        response.pipe(file);
+    });
 })
 
 client.addListener('invite', function (channel, from, message) {
-    console.log(channel,from,message);
-    
+    console.log(channel, from, message);
     client.join(channel, function (params) {
         console.log(params);
-        
+
     });
 })
 
@@ -31,16 +36,14 @@ client.addListener('error', function (message) {
 });
 
 client.addListener('message', function (from, to, message) {
-    
+
     console.log(from + ' => ' + to + ': ' + message);
 
     var msg = message.split(' ');
     var fro = from.toString();
 
     if (msg.length > 1) {
-        if (msg[0] == '!covid' && msg[1].toUpperCase() == 'CUB') {
-            getCovidCuba(to, msg[1]);
-        } else if (msg[0] == '!frase') {
+        if (msg[0] == '!frase') {
             decirFrase(to, fro, msg[1]);
         } else if (msg[0] == '!piropo') {
             decirPiropo(to, fro, msg[1]);
@@ -50,7 +53,8 @@ client.addListener('message', function (from, to, message) {
             } else {
                 decirInsulto(to, fro, msg[1]);
             }
-            
+        } else if (msg[0] == '!clima') {
+            getClima(msg, to);
         }
         else if (msg[0] == '!youtube') {
             searchYoutube(msg[1], to);
@@ -68,14 +72,16 @@ client.addListener('message', function (from, to, message) {
         } else if (message == '!ayuda') {
             client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid CUB, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
         }
-        else if (msg[0] == '!disconnect' && fro =='LukeSkywalker') {
-            client.disconnect('The Force is Leaving The Server',function (params) {
+        else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
+            client.disconnect('The Force is Leaving The Server', function (params) {
                 console.log(params);
-                
+
             });
         }
-
-         else {
+        else if (msg[0] == '!covid') {
+            getCovidCuba(to);
+        }
+        else {
 
         }
     }
@@ -84,25 +90,63 @@ client.addListener('message', function (from, to, message) {
 
 });
 
-function getCovidCuba(test, country) {
+function getCovidCuba(test) {
     var resultado;
-    request('https://covidapi.info/api/v1/country/' + country.toString().toUpperCase() + '/latest', { json: true }, (err, res, body) => {
-        if (err) { return console.log(err); }
-        console.log(body.result);
+    var total = 0;
+    var recuperados = 0;
+    var evacuados = 0;
+    var muertes = 0;
+    var ultima_fecha = '';
+    var fechaInicio = new Date('2020-03-11').getTime();
+    var fechaFin = new Date('2020-05-05').getTime();
+    var diff = fechaFin - fechaInicio;
 
-        resultado = ("En " + "Cuba" + " hay: " + "Casos Confirmados: " + body.result['2020-05-03'].confirmed + " Muertes: " + body.result['2020-05-03'].deaths + " Casos Recuperados: " + body.result['2020-05-03'].recovered)
-        client.say(test, resultado);
+    console.log(diff / (1000 * 60 * 60 * 24));
+
+    // request('https://covid19cubadata.github.io/data/covid19-cuba.json', { json: true }, (err, res, body) => {
+    //     if (err) { return console.log(err); }
+    //     // console.log(body.casos.dias['55']);
+
+    //     //   resultado = ("En " + "Cuba" + " hay: " + "Casos Confirmados: " + body.result['2020-05-03'].confirmed + " Muertes: " + body.result['2020-05-03'].deaths + " Casos Recuperados: " + body.result['2020-05-03'].recovered)
+    //     //   client.say(test, resultado);
+    //     resultado = body.casos;
+    //     // for (let index = 1; index < diff / (1000 * 60 * 60 * 24); index++) {
+    //     //     total = (body.casos.dias[index]['diagnosticados']
+    //     //     ;
+
+    //     // }
+    //     console.log(JSON.parse(resultado.dias));
+
+
+    // });
+
+    fs.readFile('covid.csv', 'utf8', function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        data = data.toString('utf8');
+        data = data.split('\n');
+
+        client.say(test, 'En Cuba hay ' + ':' + (data.length - 2) + ' casos de covid');
     });
-    console.log(country);
-    return resultado;
+
+
+
 }
-function getClima() {
-    request('api.openweathermap.org/data/2.5/weather?q=CUBA&appid=f14debd3577be84250b8573264d13e4c', { json: true }, (err, res, body) => {
-        if (err) { return console.log(err); }
-        // resultado = ("En " + country + " hay:" + "Casos Confirmados: " + body.result['2020-04-30'].confirmed + " Muertes: " + body.result['2020-04-30'].deaths + " Casos Recuperados: " + body.result['2020-04-30'].recovered)
-        client.say(test, resultado);
+function getClima(country, from) {
+    var pais = '';
+    for (let index = 1; index < country.length; index++) {
+        pais = pais + country[index] + ' ';
+    }
+    console.log(pais);
+    var resultado;
+    weather.find({ search: pais + ' Cuba', degreeType: 'C' }, function (err, result) {
+        if (err) console.log(err);
+
+        resultado = result;
+        
+        client.say(from, 'En ' + resultado[1].location.name + ' la temperatura actual es de :' + resultado[1].current.temperature + 'Grados C');
     });
-    console.log(country);
 }
 function decirFraseR(to, from) {
     fs.readFile('chorras/frases.txt', 'utf8', function (err, data) {

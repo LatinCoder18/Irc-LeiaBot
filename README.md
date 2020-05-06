@@ -10,6 +10,7 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
  6. Comando de Ayuda donde se muestran sus comandos
  7. Posibilidad de ser invitado a cualquier canal
  8. Posibilidad de buscar y leer noticias de https://www.cubadebate.cu/
+ 9. Decir el estado del clima por cada una de las provincias de CUBA
  ## Proximamente
  
  - [ ] Buscar información sobre el Horóscopo actualizado

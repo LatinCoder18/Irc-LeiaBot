@@ -4,14 +4,17 @@
   "description": "\"Bot de ayuda de IRC\"",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js"
+    "start": "node index.js"
   },
   "author": "Adonys Valdés Arencibia",
   "license": "MIT",
   "dependencies": {
+    "csv-reader": "^1.0.6",
+    "hasha": "^5.2.0",
     "irc": "^0.5.2",
     "request": "^2.88.2",
     "rss-parser": "^3.7.6",
-    "scrape-youtube": "^0.1.7"
+    "scrape-youtube": "^0.1.7",
+    "weather-js": "^2.0.0"
   }
 }
