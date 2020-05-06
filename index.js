@@ -72,7 +72,7 @@ client.addListener('message', function (from, to, message) {
         if (message == '!frase') {
             decirFraseR(to, from)
         } else if (message == '!ayuda') {
-            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid CUB, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
+            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima PROVINCIA, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
         }
         else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
             client.disconnect('The Force is Leaving The Server', function (params) {
@@ -146,7 +146,7 @@ function getClima(country, from) {
 
         resultado = result;
 
-        client.say(from, 'En ' + resultado[1].location.name + ' la temperatura actual es de :' + resultado[1].current.temperature + 'Grados C');
+        client.say(from, 'En ' + resultado[1].location.name + ' la temperatura actual es de : ' + resultado[1].current.temperature + ' Grados C');
     });
 }
 function decirFraseR(to, from) {
