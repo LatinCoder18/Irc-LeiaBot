@@ -1,0 +1,13 @@
+{
+    "bot": [
+        {
+            "name":"LeiaSkywalker",
+            "username":"LeiaOrgana",
+            "realname":"Princesa Leia Organa",
+            "server":"irc.segured.org",
+            "port":"6667",
+            "botmaster":"LukeSkywalker",
+            "password":"******"
+        }
+    ]
+}
