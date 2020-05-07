@@ -1,8 +1,8 @@
 {
     "bot": {
-        "name": "LeiaSkywalker",
-        "username": "Leia",
-        "realname": "Princesa Leia, Hermana de Luke",
+        "name": "Padme",
+        "username": "PadmeAmidala",
+        "realname": "Padmé Amidala Luke´s Mother",
         "server": "irc.segured.org",
         "port": "6667",
         "botmaster": "LukeSkywalker",
@@ -13,13 +13,13 @@
             "#cuarentenitis"
         ],
         "ignore": [
-            "Link"
+            "none"
         ]
     },
     "database": {
         "user": "root",
         "password": "",
-        "server": "localhost",
-        "bd_name": "IRC_bot"
+        "host": "localhost",
+        "database": "IRC_bot"
     }
 }

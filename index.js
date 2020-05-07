@@ -7,6 +7,7 @@ let parser = new Parser();
 const http = require('https');
 const hasha = require('hasha');
 var weather = require('weather-js');
+var mysql = require('mysql');
 var config = require('./config.json');
 
 
@@ -17,6 +18,14 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     debug: false,
     port: config.bot.port
 });
+
+var connection = mysql.createConnection({
+    host: config.database.host,
+    user: config.database.user,
+    password: config.database.password,
+    database: config.database.database
+});
+
 client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
     const file = fs.createWriteStream("covid.csv");
