@@ -25,6 +25,8 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
 
 9. Decir el estado del clima por cada una de las provincias de CUBA
 
+10.Saludos personalizados en la sala con el comando !greet add nickname seguido del Saludo, para borrarlo no mas !greet del nickname y el bot eliminará el saludo de la base de datos en caso de existir.
+
 ## Proximamente
 
 - [ ] Buscar información sobre el Horóscopo actualizado
@@ -34,8 +36,7 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
 - [ ] Ayuda en el canal de #ayuda
 
 - [ ] Mostrar info sobre el COVID de los demás paises lo más actualizada posible.!
-- [ ] Saludos personalizados a usuarios predefinidos en el canal, sin necesidad de ser operadores de la sala.
-- 
+ 
 
   
 
