@@ -1,11 +1,11 @@
 {
     "bot": {
-        "name": "Padme",
-        "username": "PadmeAmidala",
-        "realname": "Padmé Amidala Luke´s Mother",
+        "name": "Leia",
+        "username": "LeiaOrgana",
+        "realname": "LeiaOrgana",
         "server": "irc.segured.org",
         "port": "6667",
-        "botmaster": "LukeSkywalker",
+        "botmaster": "",
         "password": "******",
         "channels": [
             "#dev_team",
@@ -20,6 +20,6 @@
         "user": "root",
         "password": "",
         "host": "localhost",
-        "database": "IRC_bot"
+        "database": "irc_bot"
     }
 }

@@ -30,11 +30,12 @@ client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
     const file = fs.createWriteStream("covid.csv");
     const request = http.get("https://covid19cubadata.github.io/data/covid19-casos.csv", function (response) {
-        response.pipe(file);
+       response.pipe(file);
     });
 })
 
 client.addListener('invite', function (channel, from, message) {
+
     console.log(channel, from, message);
     client.join(channel, function (params) {
         console.log(params);
@@ -45,13 +46,31 @@ client.addListener('invite', function (channel, from, message) {
 client.addListener('error', function (message) {
     //console.log('error: ', message);
 });
+client.addListener('join', function (channel, nick, message) {
+    console.log(channel + nick);
+    connection.query('SELECT * from users', function (error, results, fields) {
+        if (error) throw error;
+        results.forEach(element => {
 
+            if (element.nickname == nick) {
+                client.say(channel, nick + " " + element.greet);
+            }
+        });
+    });
+
+});
 client.addListener('message', function (from, to, message) {
 
     console.log(from + ' => ' + to + ': ' + message);
 
     var msg = message.split(' ');
     var fro = from.toString();
+    var fullmsg = '';
+    for (let index = 3; index < msg.length; index++) {
+        fullmsg = fullmsg + msg[index] + ' ';
+    }
+    console.log(fullmsg);
+
 
     if (msg.length > 1) {
         if (msg[0] == '!frase') {
@@ -72,9 +91,38 @@ client.addListener('message', function (from, to, message) {
         else if (msg[0] == '!youtube') {
             searchYoutube(msg[1], to);
         }
-
         else if (msg[0] == '!news!!!!') {
             updateNews(fro);
+        }
+        else if (msg[0] == '!greet') {
+            console.log(message);
+            if (msg[1] == 'add') {
+                connection.query("INSERT INTO `users` (`id`, `nickname`, `greet`) VALUES (NULL, '" + msg[2] + "','" + fullmsg + "' )", function (error, results, fields) {
+                    if (error) throw error;
+                    client.say(to, "El mensaje de saludo agreagdo correctamente");
+
+                });
+            } else if (msg[1] == 'modify') {
+                console.log('st');
+
+                connection.query('SELECT 1', function (error, results, fields) {
+                    if (error) throw error;
+                    // connected!
+                });
+            } else if (msg[1] == 'del') {
+                console.log(msg[2]);
+                connection.query('DELETE FROM `users` WHERE `users`.`nickname` ="' + msg[2] + '" ', function (error, results, fields) {
+                    if (error) throw error;
+                    console.log(results);
+                    if (results.affectedRows >= 1) {
+                        console.log("Borrado correctamente");
+                        client.say(to, "El mensaje de saludo fue borrado correctamente");
+                    } else {
+                        client.say(to, "No existe el usuario");
+
+                    }
+                });
+            }
         }
         else {
 
@@ -83,7 +131,7 @@ client.addListener('message', function (from, to, message) {
         if (message == '!frase') {
             decirFraseR(to, from)
         } else if (message == '!ayuda') {
-            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima PROVINCIA, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
+            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
         }
         else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
             client.disconnect('The Force is Leaving The Server', function (params) {
