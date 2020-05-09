@@ -30,7 +30,7 @@ client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
     const file = fs.createWriteStream("covid.csv");
     const request = http.get("https://covid19cubadata.github.io/data/covid19-casos.csv", function (response) {
-       response.pipe(file);
+        response.pipe(file);
     });
 })
 
@@ -44,7 +44,7 @@ client.addListener('invite', function (channel, from, message) {
 })
 
 client.addListener('error', function (message) {
-    //console.log('error: ', message);
+    console.log('error: ', message);
 });
 client.addListener('join', function (channel, nick, message) {
     console.log(channel + nick);
@@ -94,12 +94,12 @@ client.addListener('message', function (from, to, message) {
         else if (msg[0] == '!news!!!!') {
             updateNews(fro);
         }
-        else if (msg[0] == '!greet') {
+        else if (msg[0] == '!greet' && from == config.bot.botmaster) {
             console.log(message);
             if (msg[1] == 'add') {
                 connection.query("INSERT INTO `users` (`id`, `nickname`, `greet`) VALUES (NULL, '" + msg[2] + "','" + fullmsg + "' )", function (error, results, fields) {
                     if (error) throw error;
-                    client.say(to, "El mensaje de saludo agreagdo correctamente");
+                    client.say(to, "El mensaje de saludo agregado correctamente");
 
                 });
             } else if (msg[1] == 'modify') {

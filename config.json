@@ -5,7 +5,7 @@
         "realname": "LeiaOrgana",
         "server": "irc.segured.org",
         "port": "6667",
-        "botmaster": "",
+        "botmaster": "Zuzana",
         "password": "******",
         "channels": [
             "#dev_team",
