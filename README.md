@@ -124,5 +124,6 @@ Bot para chorras, controles de canales y peticiones de usuarios actualmente que 
   
 
   
-> El bot es libre para el uso de todos, usted puede comprarme un café haciendo una pequeña donación en BTC a esta wallet :D**3MWp5AfNFvpfyEDqLim4pEga4oCU6xVGCV**
+> El bot es libre para el uso de todos, usted puede comprarme un café haciendo una pequeña donación en BTC a esta wallet :D 
+**3MWp5AfNFvpfyEDqLim4pEga4oCU6xVGCV**
 **May The Force Be With Us**
