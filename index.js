@@ -78,7 +78,7 @@ client.addListener('message', function (from, to, message) {
         } else if (msg[0] == '!piropo') {
             decirPiropo(to, fro, msg[1]);
         } else if (msg[0] == '!insulto') {
-            if (msg[1] == config.bot.botmaster) {
+            if (msg[1] == 'BotMasterVar') {
                 client.say(to, "Vas a insultar a mi creador, porque mejor no le dedicamos un hermoso piropito.");
                 sleep(2000);
                 decirPiropo(to, fro, msg[1]);
