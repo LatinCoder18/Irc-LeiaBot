@@ -15,7 +15,7 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     userName: config.bot.username,
     realName: config.bot.realname,
     channels: config.bot.channels,
-    debug: false,
+    debug: true,
     port: config.bot.port
 });
 
@@ -91,7 +91,7 @@ client.addListener('message', function (from, to, message) {
         else if (msg[0] == '!youtube') {
             searchYoutube(msg[1], to);
         }
-        else if (msg[0] == '!news!!!!') {
+        else if (msg[0] == '!news') {
             updateNews(fro);
         }
         else if (msg[0] == '!greet' && from == config.bot.botmaster) {
@@ -284,8 +284,11 @@ function sayNew(params, from) {
 }
 
 function searchYoutube(string, fro) {
-    youtube.searchOne(string).then(results => {
-        client.say(fro, results["title"] + " " + results["link"] + " - " + results["duration"] + " segs");
+    youtube.search(string).then(results => {
+        results.forEach(element => {
+            client.say(fro, element["title"] + " " + element["link"] + " - " + element["duration"] + " segs");
+
+        });
     });
 }
 
