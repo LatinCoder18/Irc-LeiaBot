@@ -19,12 +19,12 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     port: config.bot.port
 });
 
-var connection = mysql.createConnection({
-    host: config.database.host,
-    user: config.database.user,
-    password: config.database.password,
-    database: config.database.database
-});
+// var connection = mysql.createConnection({
+//     host: config.database.host,
+//     user: config.database.user,
+//     password: config.database.password,
+//     database: config.database.database
+// });
 
 client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
@@ -46,19 +46,19 @@ client.addListener('invite', function (channel, from, message) {
 client.addListener('error', function (message) {
     console.log('error: ', message);
 });
-client.addListener('join', function (channel, nick, message) {
-    console.log(channel + nick);
-    connection.query('SELECT * from users', function (error, results, fields) {
-        if (error) throw error;
-        results.forEach(element => {
+// client.addListener('join', function (channel, nick, message) {
+//     console.log(channel + nick);
+//     connection.query('SELECT * from users', function (error, results, fields) {
+//         if (error) throw error;
+//         results.forEach(element => {
 
-            if (element.nickname == nick) {
-                client.say(channel, nick + " " + element.greet);
-            }
-        });
-    });
+//             if (element.nickname == nick) {
+//                 client.say(channel, nick + " " + element.greet);
+//             }
+//         });
+//     });
 
-});
+// });
 client.addListener('message', function (from, to, message) {
 
     console.log(from + ' => ' + to + ': ' + message);
@@ -94,7 +94,7 @@ client.addListener('message', function (from, to, message) {
         else if (msg[0] == '!news') {
             updateNews(fro);
         }
-        else if (msg[0] == '!greet' && from == config.bot.botmaster) {
+        else if (msg[0] == '!greet---' && from == config.bot.botmaster) {
             console.log(message);
             if (msg[1] == 'add') {
                 connection.query("INSERT INTO `users` (`id`, `nickname`, `greet`) VALUES (NULL, '" + msg[2] + "','" + fullmsg + "' )", function (error, results, fields) {
@@ -287,7 +287,6 @@ function searchYoutube(string, fro) {
     youtube.search(string).then(results => {
         results.forEach(element => {
             client.say(fro, element["title"] + " " + element["link"] + " - " + element["duration"] + " segs");
-
         });
     });
 }
