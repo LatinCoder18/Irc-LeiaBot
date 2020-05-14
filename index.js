@@ -9,7 +9,13 @@ const hasha = require('hasha');
 var weather = require('weather-js');
 var mysql = require('mysql');
 var config = require('./config.json');
-
+const jsonfile = require('jsonfile');
+const file = 'database/users.json';
+const obj = {
+    name: 'LukeSkywalker',
+    greet: 'May The Force be with u'
+}
+jsonfile.writeFileSync(file, obj, { flag: 'a' })
 
 var client = new irc.Client(config.bot.server, config.bot.name, {
     userName: config.bot.username,
@@ -19,12 +25,12 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     port: config.bot.port
 });
 
-// var connection = mysql.createConnection({
-//     host: config.database.host,
-//     user: config.database.user,
-//     password: config.database.password,
-//     database: config.database.database
-// });
+var connection = mysql.createConnection({
+    host: config.database.host,
+    user: config.database.user,
+    password: config.database.password,
+    database: config.database.database
+});
 
 client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
@@ -46,19 +52,19 @@ client.addListener('invite', function (channel, from, message) {
 client.addListener('error', function (message) {
     console.log('error: ', message);
 });
-// client.addListener('join', function (channel, nick, message) {
-//     console.log(channel + nick);
-//     connection.query('SELECT * from users', function (error, results, fields) {
-//         if (error) throw error;
-//         results.forEach(element => {
+client.addListener('join', function (channel, nick, message) {
+    console.log(channel + nick);
+    connection.query('SELECT * from users', function (error, results, fields) {
+        if (error) throw error;
+        results.forEach(element => {
 
-//             if (element.nickname == nick) {
-//                 client.say(channel, nick + " " + element.greet);
-//             }
-//         });
-//     });
+            if (element.nickname == nick) {
+                client.say(channel, nick + " " + element.greet);
+            }
+        });
+    });
 
-// });
+});
 client.addListener('message', function (from, to, message) {
 
     console.log(from + ' => ' + to + ': ' + message);
@@ -91,10 +97,8 @@ client.addListener('message', function (from, to, message) {
         else if (msg[0] == '!youtube') {
             searchYoutube(msg[1], to);
         }
-        else if (msg[0] == '!news') {
-            updateNews(fro);
-        }
-        else if (msg[0] == '!greet---' && from == config.bot.botmaster) {
+
+        else if (msg[0] == '!greet' && from == config.bot.botmaster) {
             console.log(message);
             if (msg[1] == 'add') {
                 connection.query("INSERT INTO `users` (`id`, `nickname`, `greet`) VALUES (NULL, '" + msg[2] + "','" + fullmsg + "' )", function (error, results, fields) {
@@ -131,16 +135,18 @@ client.addListener('message', function (from, to, message) {
         if (message == '!frase') {
             decirFraseR(to, from)
         } else if (message == '!ayuda') {
-            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion y cantante todo junto sin espacios ;) ");
+            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion ");
         }
         else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
             client.disconnect('The Force is Leaving The Server', function (params) {
                 console.log(params);
-
             });
         }
         else if (msg[0] == '!covid') {
             getCovidCuba(to);
+        }
+        else if (msg[0] == '!news') {
+            updateNews(fro);
         }
         else {
 
