@@ -11,11 +11,7 @@ var mysql = require('mysql');
 var config = require('./config.json');
 const jsonfile = require('jsonfile');
 const file = 'database/users.json';
-const obj = {
-    name: 'LukeSkywalker',
-    greet: 'May The Force be with u'
-}
-jsonfile.writeFileSync(file, obj, { flag: 'a' })
+
 
 var client = new irc.Client(config.bot.server, config.bot.name, {
     userName: config.bot.username,
@@ -25,12 +21,12 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     port: config.bot.port
 });
 
-var connection = mysql.createConnection({
-    host: config.database.host,
-    user: config.database.user,
-    password: config.database.password,
-    database: config.database.database
-});
+// var connection = mysql.createConnection({
+//     host: config.database.host,
+//     user: config.database.user,
+//     password: config.database.password,
+//     database: config.database.database
+// });
 
 client.addListener('registered', function () {
     client.say('nickserv', 'identify ' + config.bot.password);
@@ -45,26 +41,25 @@ client.addListener('invite', function (channel, from, message) {
     console.log(channel, from, message);
     client.join(channel, function (params) {
         console.log(params);
-
     });
 })
 
 client.addListener('error', function (message) {
     console.log('error: ', message);
 });
-client.addListener('join', function (channel, nick, message) {
-    console.log(channel + nick);
-    connection.query('SELECT * from users', function (error, results, fields) {
-        if (error) throw error;
-        results.forEach(element => {
+// client.addListener('join', function (channel, nick, message) {
+//     console.log(channel + nick);
+//     connection.query('SELECT * from users', function (error, results, fields) {
+//         if (error) throw error;
+//         results.forEach(element => {
 
-            if (element.nickname == nick) {
-                client.say(channel, nick + " " + element.greet);
-            }
-        });
-    });
+//             if (element.nickname == nick) {
+//                 client.say(channel, nick + " " + element.greet);
+//             }
+//         });
+//     });
 
-});
+// });
 client.addListener('message', function (from, to, message) {
 
     console.log(from + ' => ' + to + ': ' + message);
@@ -98,7 +93,7 @@ client.addListener('message', function (from, to, message) {
             searchYoutube(msg[1], to);
         }
 
-        else if (msg[0] == '!greet' && from == config.bot.botmaster) {
+        else if (msg[0] == '!greet+++' && from == config.bot.botmaster) {
             console.log(message);
             if (msg[1] == 'add') {
                 connection.query("INSERT INTO `users` (`id`, `nickname`, `greet`) VALUES (NULL, '" + msg[2] + "','" + fullmsg + "' )", function (error, results, fields) {
@@ -166,25 +161,6 @@ function getCovidCuba(test) {
     var fechaInicio = new Date('2020-03-11').getTime();
     var fechaFin = new Date('2020-05-05').getTime();
     var diff = fechaFin - fechaInicio;
-
-    console.log(diff / (1000 * 60 * 60 * 24));
-
-    // request('https://covid19cubadata.github.io/data/covid19-cuba.json', { json: true }, (err, res, body) => {
-    //     if (err) { return console.log(err); }
-    //     // console.log(body.casos.dias['55']);
-
-    //     //   resultado = ("En " + "Cuba" + " hay: " + "Casos Confirmados: " + body.result['2020-05-03'].confirmed + " Muertes: " + body.result['2020-05-03'].deaths + " Casos Recuperados: " + body.result['2020-05-03'].recovered)
-    //     //   client.say(test, resultado);
-    //     resultado = body.casos;
-    //     // for (let index = 1; index < diff / (1000 * 60 * 60 * 24); index++) {
-    //     //     total = (body.casos.dias[index]['diagnosticados']
-    //     //     ;
-
-    //     // }
-    //     console.log(JSON.parse(resultado.dias));
-
-
-    // });
 
     fs.readFile('covid.csv', 'utf8', function (err, data) {
         if (err) {
@@ -277,7 +253,7 @@ function updateNews(fro) {
             // console.log(item.title + ' : ' + item.link)
 
             title = item.title;
-            sayNew(item.title, from);
+            sayNew(item.title + ' ' + item.link, from);
         });
 
     })();
