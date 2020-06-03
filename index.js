@@ -34,6 +34,8 @@ client.addListener('registered', function () {
     const request = http.get("https://covid19cubadata.github.io/data/covid19-casos.csv", function (response) {
         response.pipe(file);
     });
+    client.part("#trivia","Pueden encontrarme en lobby tipeen el comando !ayuda ;)");
+
 })
 
 client.addListener('invite', function (channel, from, message) {
@@ -78,6 +80,9 @@ client.addListener('message', function (from, to, message) {
             decirFrase(to, fro, msg[1]);
         } else if (msg[0] == '!piropo') {
             decirPiropo(to, fro, msg[1]);
+        }
+        else if (msg[0] == '!intro') {
+            decirIntroduccion(msg[1]);
         } else if (msg[0] == '!insulto') {
             if (msg[1] == 'BotMasterVar') {
                 client.say(to, "Vas a insultar a mi creador, porque mejor no le dedicamos un hermoso piropito.");
@@ -130,7 +135,7 @@ client.addListener('message', function (from, to, message) {
         if (message == '!frase') {
             decirFraseR(to, from)
         } else if (message == '!ayuda') {
-            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion ");
+            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion,!intro usernick (Para darle una introduccion a los usuarios nuevos en la sala!!!) ");
         }
         else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
             client.disconnect('The Force is Leaving The Server', function (params) {
@@ -150,7 +155,18 @@ client.addListener('message', function (from, to, message) {
 
 
 });
+function decirIntroduccion(from) {
+    console.log("HOla Mundo");
+    client.say(from,"Hola, bienvenido al chat, en el mismo contamos con dos salas, 1 llamada #lobby que es para la charla comun entre usuarios");
+    sleep(2000);
+    client.say(from,"Y la otra se llama #trivia es un canal para que los usuarios respondan las preguntas del BOT y el mismo les va dando puntos y un ranking juega y disfruta jugando");
+    sleep(1500);
+    client.say(from,"Si desea conocer la lista de usuarios de un canal y estas en la app Segured-Chat, desliza el dedo de la derecha de la pantalla hasta el centro de la misma, bien pegado al borde derecho");
+    sleep(3000);
+    client.say(from,"Si deseas saber que mas puedo hacer para ayudarte en la sala #lobby escribe el comando !ayuda  saludos y que la fuerza te acompañe");
+    client.say(from,"Puedes preguntar en el lobby :D cualquier otra duda ");
 
+}
 function getCovidCuba(test) {
     var resultado;
     var total = 0;

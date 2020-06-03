@@ -8,9 +8,7 @@
         "botmaster": "Zuzana",
         "password": "******",
         "channels": [
-            "#dev_team",
-            "#ayuda",
-            "#cuarentenitis"
+            "#dev_team"
         ],
         "ignore": [
             "none"
