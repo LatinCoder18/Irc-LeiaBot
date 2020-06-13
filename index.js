@@ -185,7 +185,7 @@ function getCovidCuba(test) {
         data = data.toString('utf8');
         data = data.split('\n');
 
-        client.say(test, 'En Cuba hay ' + ':' + (data.length - 2) + ' casos de covid');
+        client.say(test, 'En Cuba hay ' + ':' + (data.length - 2) + ' casos acumulados de covid');
     });
 
 
