@@ -8,10 +8,10 @@ const http = require('https');
 const hasha = require('hasha');
 var weather = require('weather-js');
 var mysql = require('mysql');
-var config = require('./config.json');
 const jsonfile = require('jsonfile');
 const file = 'database/users.json';
-
+var config = require('./config.json');
+const c = require('irc-colors').global();
 
 var client = new irc.Client(config.bot.server, config.bot.name, {
     userName: config.bot.username,
@@ -135,7 +135,7 @@ client.addListener('message', function (from, to, message) {
         if (message == '!frase') {
             decirFraseR(to, from)
         } else if (message == '!ayuda') {
-            client.say(to, from + ' : ' + "Puede probar los siguientes comandos !covid,!clima localidad, !frase, !frase Nick, !insulto Nick, !piropo Nick, !youtube nombre de la cancion,!intro usernick (Para darle una introduccion a los usuarios nuevos en la sala!!!) ");
+            client.say(to, from + ' : ' + "Puede probar los siguientes comandos".irc.white.bgblack()+" !covid".irc.purple.bold()+" ,!clima".irc.purple.bold()+" localidad,".irc.cyan()+" !frase".irc.purple.bold()+", !frase".irc.purple.bold()+" Nick".irc.cyan()+", !insulto".irc.purple.bold()+" Nick".irc.cyan()+", !piropo".irc.purple.bold()+" Nick"+", !youtube".irc.purple.bold()+" nombre de la cancion,!intro".irc.purple.bold()+" usernick (Para darle una introduccion a los usuarios nuevos en la sala!!!)".irc.cyan()+" ");
         }
         else if (msg[0] == '!disconnect' && fro == 'LukeSkywalker') {
             client.disconnect('The Force is Leaving The Server', function (params) {
