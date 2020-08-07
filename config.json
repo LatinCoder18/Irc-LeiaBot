@@ -4,9 +4,9 @@
         "username": "LeiaOrgana",
         "realname": "LeiaOrgana",
         "server": "irc.segured.org",
-        "port": "443",
+        "port": "6667",
         "botmaster": "Zuzana",
-        "password": "******",
+        "password": "TheForceBot*9",
         "channels": [
             "#dev_team"
         ],
