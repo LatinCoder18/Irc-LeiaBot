@@ -228,8 +228,11 @@ function decirFrase(to, from, mess) {
         data = data.split('\n');
         console.log(data);
         var aleatorio = Math.round(Math.random() * data.length);
+        if(aleatorio==undefined){
+            decirPiropo(to,from,mess);
+        }else{
         client.say(to, mess + " ," + from + " le dedica esta fráse: " + data[aleatorio]);
-
+        }
     });
 }
 function decirPiropo(to, from, mess) {
@@ -241,8 +244,11 @@ function decirPiropo(to, from, mess) {
         data = data.split('\n');
         console.log(data);
         var aleatorio = Math.round(Math.random() * data.length);
+        if(aleatorio==undefined){
+            decirPiropo(to,from,mess);
+        }else{
         client.say(to, mess + " ," + from + " le dedica este hermoso piropo: " + data[aleatorio]);
-
+    }
     });
 }
 function decirInsulto(to, from, mess) {
