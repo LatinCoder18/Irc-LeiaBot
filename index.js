@@ -219,7 +219,7 @@ function decirFraseR(to, from) {
         if(data[aleatorio]==undefined||data[aleatorio].length<6){
             decirPiropo(to,from,mess);
         }else{
-        client.say(to, mess + " ," + from + " le dedica esta fráse: " + data[aleatorio]);
+        client.say(to, from + " " + data[aleatorio]);
         }
     });
 }
