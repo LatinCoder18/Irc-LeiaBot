@@ -216,7 +216,11 @@ function decirFraseR(to, from) {
         data = data.split('\n');
         console.log(data);
         var aleatorio = Math.round(Math.random() * data.length);
-        client.say(to, from + ':' + data[aleatorio]);
+        if(data[aleatorio]==undefined||data[aleatorio].length<6){
+            decirPiropo(to,from,mess);
+        }else{
+        client.say(to, mess + " ," + from + " le dedica esta fráse: " + data[aleatorio]);
+        }
     });
 }
 function decirFrase(to, from, mess) {
@@ -228,7 +232,7 @@ function decirFrase(to, from, mess) {
         data = data.split('\n');
         console.log(data);
         var aleatorio = Math.round(Math.random() * data.length);
-        if(aleatorio==undefined){
+        if(data[aleatorio]==undefined||data[aleatorio].length<6){
             decirPiropo(to,from,mess);
         }else{
         client.say(to, mess + " ," + from + " le dedica esta fráse: " + data[aleatorio]);
