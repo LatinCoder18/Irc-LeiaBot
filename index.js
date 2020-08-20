@@ -326,7 +326,7 @@ var Watcher  = require('feed-watcher'),
   // Check for new entries every n seconds.
   watcher.on('new entries', function (entries) {
     entries.forEach(function (entry) {
-      client.say('#lobby', 'El blog de tecnología tiene una nueva entrada titulada: '+entry.title + "puede leerla en: "+entry.link); 
+      client.say('#lobby', 'El blog de tecnología tiene una nueva entrada titulada: '+entry.title + " ,puede leerla en: "+entry.link); 
       console.log(entry.title)
       console.log(entry.link)
     })
@@ -352,7 +352,7 @@ var Watcher  = require('feed-watcher'),
   // Check for new entries every n seconds.
   watcher1.on('new entries', function (entries) {
     entries.forEach(function (entry) {
-      client.say('#lobby', 'Cubadebate tiene una nueva entrada titulada: '+entry.title + "puede leerla en: "+entry.link);
+      client.say('#lobby', 'Cubadebate tiene una nueva entrada titulada: '+entry.title + " ,puede leerla en: "+entry.link);
       console.log(entry.title)
       console.log(entry.link)
     })
