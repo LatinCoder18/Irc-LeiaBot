@@ -342,5 +342,31 @@ var Watcher  = require('feed-watcher'),
      // console.error(error)
     })
 
+    var Watcher1  = require('feed-watcher'),
+      feed     = 'http://www.cubadebate.cu/feed',
+      interval = 10 // seconds
+
+  // if not interval is passed, 60s would be set as default interval.
+  var watcher1 = new Watcher1(feed, interval)
+
+  // Check for new entries every n seconds.
+  watcher1.on('new entries', function (entries) {
+    entries.forEach(function (entry) {
+      client.say('#lobby', 'Cubadebate tiene una nueva entrada titulada: '+entry.title + "puede leerla en: "+entry.link);
+      console.log(entry.title)
+      console.log(entry.link)
+    })
+  })
+
+  // Start watching the feed.
+  watcher1
+    .start()
+    .then(function (entries) {
+     // console.log(entries)
+    })
+    .catch(function(error) {
+     // console.error(error)
+    })
+
   // Stop watching the feed.
   //watcher.stop()
