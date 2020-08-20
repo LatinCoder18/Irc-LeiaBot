@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "csv-reader": "^1.0.6",
+    "feed-watcher": "^0.2.1",
     "hasha": "^5.2.0",
     "irc": "^0.5.2",
     "irc-colors": "^1.5.0",
@@ -17,6 +18,7 @@
     "mysql": "^2.18.1",
     "request": "^2.88.2",
     "rss-parser": "^3.7.6",
+    "rss-watcher": "^1.4.0",
     "scrape-youtube": "^0.1.7",
     "weather-js": "^2.0.0"
   }

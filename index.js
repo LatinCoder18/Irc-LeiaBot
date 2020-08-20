@@ -11,6 +11,7 @@ var mysql = require('mysql');
 const jsonfile = require('jsonfile');
 const file = 'database/users.json';
 var config = require('./config.json');
+
 const c = require('irc-colors').global();
 
 var client = new irc.Client(config.bot.server, config.bot.name, {
@@ -20,6 +21,8 @@ var client = new irc.Client(config.bot.server, config.bot.name, {
     debug: true,
     port: config.bot.port
 });
+
+
 
 // var connection = mysql.createConnection({
 //     host: config.database.host,
@@ -313,3 +316,31 @@ function flipCoin(params) {
     }
     var aleatorio = Mat.round
 }
+var Watcher  = require('feed-watcher'),
+      feed     = 'https://blog.elitecnologica.com/feed',
+      interval = 10 // seconds
+
+  // if not interval is passed, 60s would be set as default interval.
+  var watcher = new Watcher(feed, interval)
+
+  // Check for new entries every n seconds.
+  watcher.on('new entries', function (entries) {
+    entries.forEach(function (entry) {
+      client.say('#lobby', 'El blog de tecnología tiene una nueva entrada titulada: '+entry.title + "puede leerla en: "+entry.link); 
+      console.log(entry.title)
+      console.log(entry.link)
+    })
+  })
+
+  // Start watching the feed.
+  watcher
+    .start()
+    .then(function (entries) {
+     // console.log(entries)
+    })
+    .catch(function(error) {
+     // console.error(error)
+    })
+
+  // Stop watching the feed.
+  //watcher.stop()
