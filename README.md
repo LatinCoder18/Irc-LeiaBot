@@ -1,7 +1,7 @@
+![](https://komarev.com/ghpvc/?username=LeiaBot&color=006bed)
 
 ![LeiaSkywalker BOT](https://i.ibb.co/HXTctRy/leia.jpg)
 
-  
 
   
 
